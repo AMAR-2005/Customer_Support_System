@@ -4,6 +4,7 @@ import com.examly.springapp.model.Ticket;
 import com.examly.springapp.model.Response;
 import com.examly.springapp.repository.TicketRepository;
 import com.examly.springapp.repository.ResponseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
@@ -16,6 +17,8 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final ResponseRepository responseRepository;
 
+    @Autowired
+    private  NotificationService notificationService;
     public TicketService(TicketRepository ticketRepository, ResponseRepository responseRepository) {
         this.ticketRepository = ticketRepository;
         this.responseRepository = responseRepository;
@@ -53,13 +56,20 @@ public class TicketService {
     public Ticket updateTicketStatus(Long ticketId, Ticket.TicketStatus status) {
         Optional<Ticket> ticketOpt = ticketRepository.findById(ticketId);
         if (ticketOpt.isEmpty()) {
-            // The tests expect NOT_FOUND for unknown ticket
             throw new EntityNotFoundException("Ticket not found");
         }
         Ticket ticket = ticketOpt.get();
-        ticket.setStatus(status);
-        ticket.setUpdatedAt(LocalDateTime.now());
-        return ticketRepository.save(ticket);
+        Ticket.TicketStatus oldStatus = ticket.getStatus();
+        if (oldStatus != status) {
+            ticket.setStatus(status);
+            ticket.setUpdatedAt(LocalDateTime.now());
+            Ticket savedTicket = ticketRepository.save(ticket);
+
+            notificationService.sendTicketStatusChange(savedTicket);
+
+            return savedTicket;
+        }
+       return ticket;
     }
 
     @Transactional

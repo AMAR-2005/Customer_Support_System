@@ -29,9 +29,8 @@ const AgentDashboard = () => {
 
       if (response.ok) {
         const data = await response.json()
-        setTickets(data.slice(0, 5)) // Show recent 5 tickets
+        setTickets(data.slice(0, 10)) 
 
-        // Calculate stats
         const pending = data.filter((t) => t.status === "OPEN" || t.status === "IN_PROGRESS").length
         const resolved = data.filter((t) => t.status === "RESOLVED" || t.status === "CLOSED").length
 

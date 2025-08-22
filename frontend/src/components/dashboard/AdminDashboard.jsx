@@ -129,8 +129,6 @@ const AdminDashboard = () => {
           </div>
 
         </div>
-
-
         <div className="mt-6 grid gap-6 md:grid-cols-2 mb-6 ">
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">Quick Actions</h2>
