@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "https://v0.app", "https://*.v0.app", "https://*.vercel.app"})
+@CrossOrigin(origins = {"https://customer-system-frontend.vercel.app","http://localhost:3000", "https://v0.app", "https://*.v0.app", "https://*.vercel.app"})
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

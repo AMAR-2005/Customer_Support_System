@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/customer")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "https://v0.app", "https://*.v0.app", "https://*.vercel.app"})
+@CrossOrigin(origins = {"https://customer-system-frontend.vercel.app","http://localhost:3000", "https://v0.app", "https://*.v0.app", "https://*.vercel.app"})
 public class CustomerController {
 
     private final TicketService ticketService;

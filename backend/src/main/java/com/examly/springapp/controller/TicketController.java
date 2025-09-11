@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/tickets")
-@CrossOrigin(origins = "https://8081-daecaffcbcfdfaeebdcdaacaabbdabadeeaeaead.premiumproject.examly.io")
+@CrossOrigin(origins = "https://customer-system-frontend.vercel.app")
 public class TicketController {
     private final TicketService ticketService;
 
